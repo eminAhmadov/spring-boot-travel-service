@@ -2,10 +2,8 @@ package com.example.travelservice.controllers;
 
 import com.example.travelservice.entities.Travel;
 import com.example.travelservice.services.TravelService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +27,11 @@ public class TravelController {
     @PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
     public Travel createTravel(@RequestBody Travel travel) {
         return travelService.createTravel(travel);
+    }
+
+    @DeleteMapping(path = "/delete")
+    public ResponseEntity<String> deleteTravel(@RequestParam Long id) {
+        return travelService.deleteTravel(id);
     }
 
 }
