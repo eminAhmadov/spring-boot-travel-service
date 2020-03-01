@@ -24,7 +24,7 @@ public class Travel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Type(type="uuid-char")
+    @Type(type = "uuid-char")
     @Column(name = "user_id", nullable = false, columnDefinition = "BINARY(36)")
     private UUID userId;
 
@@ -54,7 +54,7 @@ public class Travel {
         this.date = date;
     }
 
-    public Travel(String userId, String origin, String destination, String comment, Date date) throws ParseException {
+    public Travel(String userId, String origin, String destination, String comment, Date date) {
         this.userId = UUID.fromString(userId);
         this.origin = origin;
         this.destination = destination;

@@ -19,7 +19,7 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public List<Travel> getAllT() {
+    public List<Travel> getAll() {
         return travelRepository.findAllByOrderByDateDesc();
     }
 
