@@ -17,7 +17,7 @@ import java.util.UUID;
 )
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name = "users")
+@Table(name = "travels")
 public class Travel {
 
     @Id
@@ -28,11 +28,14 @@ public class Travel {
     @Column(name = "user_id", nullable = false, columnDefinition = "BINARY(36)")
     private UUID userId;
 
-    @Column(name = "from", nullable = false)
-    private String from;
+    @Column(name = "origin", nullable = false)
+    private String origin;
 
-    @Column(name = "to", nullable = false)
-    private String to;
+    @Column(name = "destination", nullable = false)
+    private String destination;
+
+    @Column(name = "comment")
+    private String comment;
 
     @Column(name = "date",
             nullable = false,
@@ -43,31 +46,35 @@ public class Travel {
     public Travel() {
     }
 
-    public Travel(UUID userId, String from, String to, Date date) {
+    public Travel(UUID userId, String origin, String destination, String comment, Date date) {
         this.userId = userId;
-        this.from = from;
-        this.to = to;
+        this.origin = origin;
+        this.destination = destination;
+        this.comment = comment;
         this.date = date;
     }
 
-    public Travel(String userId, String from, String to, Date date) throws ParseException {
+    public Travel(String userId, String origin, String destination, String comment, Date date) throws ParseException {
         this.userId = UUID.fromString(userId);
-        this.from = from;
-        this.to = to;
+        this.origin = origin;
+        this.destination = destination;
+        this.comment = comment;
         this.date = date;
     }
 
-    public Travel(UUID userId, String from, String to, String date) throws ParseException {
+    public Travel(UUID userId, String origin, String destination, String comment, String date) throws ParseException {
         this.userId = userId;
-        this.from = from;
-        this.to = to;
+        this.origin = origin;
+        this.destination = destination;
+        this.comment = comment;
         this.date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
     }
 
-    public Travel(String userId, String from, String to, String date) throws ParseException {
+    public Travel(String userId, String origin, String destination, String comment, String date) throws ParseException {
         this.userId = UUID.fromString(userId);
-        this.from = from;
-        this.to = to;
+        this.origin = origin;
+        this.destination = destination;
+        this.comment = comment;
         this.date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
     }
 
@@ -91,20 +98,28 @@ public class Travel {
         this.userId = UUID.fromString(userId);
     }
 
-    public String getFrom() {
-        return from;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setOrigin(String from) {
+        this.origin = from;
     }
 
-    public String getTo() {
-        return to;
+    public String getDestination() {
+        return destination;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setDestination(String to) {
+        this.destination = to;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Date getDate() {
