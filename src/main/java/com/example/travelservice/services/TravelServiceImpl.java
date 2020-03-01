@@ -24,7 +24,7 @@ public class TravelServiceImpl implements TravelService {
 
     @Override
     public List<Travel> getAll() {
-        return travelRepository.findAllByOrderByDateDesc();
+        return travelRepository.findAllByOrderByAddedOnDesc();
     }
 
     @Override

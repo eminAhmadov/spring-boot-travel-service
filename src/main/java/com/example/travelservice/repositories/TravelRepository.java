@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface TravelRepository extends CrudRepository<Travel, Long> {
-    public List<Travel> findAllByOrderByDateDesc();
+    public List<Travel> findAllByOrderByAddedOnDesc();
 }

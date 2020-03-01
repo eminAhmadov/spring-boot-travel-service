@@ -8,6 +8,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -41,6 +42,11 @@ public class Travel {
             nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;
+
+    @Column(name = "added_on",
+            nullable = false,
+            updatable = false)
+    private LocalDateTime addedOn = LocalDateTime.now();
 
     public Travel() {
     }
@@ -131,5 +137,13 @@ public class Travel {
 
     public void setDate(String date) throws ParseException {
         this.date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+    }
+
+    public LocalDateTime getAddedOn() {
+        return addedOn;
+    }
+
+    public void setAddedOn(LocalDateTime addedOn) {
+        this.addedOn = addedOn;
     }
 }
