@@ -9,4 +9,5 @@ public interface TravelService {
     List<Travel> getAll();
     Travel createTravel(Travel travel);
     ResponseEntity<String> deleteTravel(Long id);
+    ResponseEntity<String> editTravel(Long id, Travel travel);
 }

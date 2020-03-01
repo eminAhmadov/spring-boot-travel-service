@@ -34,4 +34,9 @@ public class TravelController {
         return travelService.deleteTravel(id);
     }
 
+    @PutMapping(path = "/edit", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<String> editTravel (@RequestParam Long id, @RequestBody Travel travel) {
+        return travelService.editTravel(id, travel);
+    }
+
 }

@@ -25,7 +25,7 @@ public class Travel {
     private Long id;
 
     @Type(type = "uuid-char")
-    @Column(name = "user_id", nullable = false, columnDefinition = "BINARY(36)")
+    @Column(name = "user_id", nullable = false, updatable = false, columnDefinition = "BINARY(36)")
     private UUID userId;
 
     @Column(name = "origin", nullable = false)
@@ -38,8 +38,7 @@ public class Travel {
     private String comment;
 
     @Column(name = "date",
-            nullable = false,
-            updatable = false)
+            nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;
 

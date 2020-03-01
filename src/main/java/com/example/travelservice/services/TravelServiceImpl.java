@@ -47,4 +47,20 @@ public class TravelServiceImpl implements TravelService {
         message = "Could not find travel with id: " + id + ".";
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
+
+    @Override
+    public ResponseEntity<String> editTravel(Long id, Travel travel) {
+        String message;
+        Optional<Travel> foundTravel = travelRepository.findById(id);
+
+        if (foundTravel.isPresent()) {
+            travel.setId(id);
+            travelRepository.save(travel);
+            message = "Successfully updated travel with id: " + travel.getId() + ".";
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }
+
+        message = "Could not find travel with id: " + travel.getId() + ".";
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
 }
