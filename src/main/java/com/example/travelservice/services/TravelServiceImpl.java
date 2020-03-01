@@ -28,8 +28,21 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public Travel createTravel(Travel travel) {
-        return travelRepository.save(travel);
+    public ResponseEntity<Travel> createTravel(Travel travel) {
+        boolean alreadyExists = travelRepository.existsByUserIdAndOriginAndDestinationAndDate(
+                travel.getUserId(),
+                travel.getOrigin(),
+                travel.getDestination(),
+                travel.getDate()
+        );
+
+        if (alreadyExists) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        Travel savedTravel = travelRepository.save(travel);
+
+        return new ResponseEntity<>(savedTravel, HttpStatus.OK);
     }
 
     @Override
@@ -51,6 +64,19 @@ public class TravelServiceImpl implements TravelService {
     @Override
     public ResponseEntity<String> editTravel(Long id, Travel travel) {
         String message;
+
+        boolean alreadyExists = travelRepository.existsByUserIdAndOriginAndDestinationAndDate(
+                travel.getUserId(),
+                travel.getOrigin(),
+                travel.getDestination(),
+                travel.getDate()
+        );
+
+        if (alreadyExists) {
+            message = "Such travel already exists!";
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        }
+
         Optional<Travel> foundTravel = travelRepository.findById(id);
 
         if (foundTravel.isPresent()) {
@@ -60,7 +86,7 @@ public class TravelServiceImpl implements TravelService {
             return new ResponseEntity<>(message, HttpStatus.OK);
         }
 
-        message = "Could not find travel with id: " + travel.getId() + ".";
+        message = "Could not find travel with id: " + id + ".";
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 }

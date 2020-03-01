@@ -25,7 +25,7 @@ public class TravelController {
     }
 
     @PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
-    public Travel createTravel(@RequestBody Travel travel) {
+    public ResponseEntity<Travel> createTravel(@RequestBody Travel travel) {
         return travelService.createTravel(travel);
     }
 
