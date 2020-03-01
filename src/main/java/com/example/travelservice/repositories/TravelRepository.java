@@ -11,6 +11,6 @@ import java.util.UUID;
 @Repository
 public interface TravelRepository extends CrudRepository<Travel, Long> {
     List<Travel> findAllByOrderByAddedOnDesc();
-    List<Travel> findByUserId(UUID userId);
+    List<Travel> findByUserIdOrderByAddedOnDesc(UUID userId);
     boolean existsByUserIdAndOriginAndDestinationAndDate(UUID userId, String origin, String destination, Date date);
 }

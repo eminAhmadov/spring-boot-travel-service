@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class TravelController {
@@ -24,6 +25,11 @@ public class TravelController {
         return travelService.getAll();
     }
 
+    @GetMapping("/getAllForUserWithUserId")
+    public List<Travel> getAllForUserWithUserId(@RequestParam UUID userId) {
+        return travelService.getAllForUserWithUserId(userId);
+    }
+
     @PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Travel> createTravel(@RequestBody Travel travel) {
         return travelService.createTravel(travel);
@@ -35,7 +41,7 @@ public class TravelController {
     }
 
     @PutMapping(path = "/edit", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<String> editTravel (@RequestParam Long id, @RequestBody Travel travel) {
+    public ResponseEntity<String> editTravel(@RequestParam Long id, @RequestBody Travel travel) {
         return travelService.editTravel(id, travel);
     }
 

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TravelServiceImpl implements TravelService {
@@ -25,6 +26,11 @@ public class TravelServiceImpl implements TravelService {
     @Override
     public List<Travel> getAll() {
         return travelRepository.findAllByOrderByAddedOnDesc();
+    }
+
+    @Override
+    public List<Travel> getAllForUserWithUserId(UUID userId) {
+        return travelRepository.findByUserIdOrderByAddedOnDesc(userId);
     }
 
     @Override
