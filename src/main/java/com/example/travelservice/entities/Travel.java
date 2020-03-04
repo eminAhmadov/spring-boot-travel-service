@@ -43,6 +43,15 @@ public class Travel {
     @Temporal(TemporalType.DATE)
     private Date date;
 
+    @Column(name = "facebook")
+    private String facebook;
+
+    @Column(name = "instagram")
+    private String instagram;
+
+    @Column(name = "mobile")
+    private String mobile;
+
     @Column(name = "added_on",
             nullable = false,
             updatable = false)
@@ -51,35 +60,47 @@ public class Travel {
     public Travel() {
     }
 
-    public Travel(UUID userId, String origin, String destination, String comment, Date date) {
+    public Travel(UUID userId, String origin, String destination, String comment, String facebook, String instagram, String mobile, Date date) {
         this.userId = userId;
         this.origin = origin;
         this.destination = destination;
         this.comment = comment;
+        this.facebook = facebook;
+        this.instagram = instagram;
+        this.mobile = mobile;
         this.date = date;
     }
 
-    public Travel(String userId, String origin, String destination, String comment, Date date) {
+    public Travel(String userId, String origin, String destination, String comment, String facebook, String instagram, String mobile, Date date) {
         this.userId = UUID.fromString(userId);
         this.origin = origin;
         this.destination = destination;
         this.comment = comment;
+        this.facebook = facebook;
+        this.instagram = instagram;
+        this.mobile = mobile;
         this.date = date;
     }
 
-    public Travel(UUID userId, String origin, String destination, String comment, String date) throws ParseException {
+    public Travel(UUID userId, String origin, String destination, String comment, String facebook, String instagram, String mobile, String date) throws ParseException {
         this.userId = userId;
         this.origin = origin;
         this.destination = destination;
         this.comment = comment;
+        this.facebook = facebook;
+        this.instagram = instagram;
+        this.mobile = mobile;
         this.date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
     }
 
-    public Travel(String userId, String origin, String destination, String comment, String date) throws ParseException {
+    public Travel(String userId, String origin, String destination, String comment, String facebook, String instagram, String mobile, String date) throws ParseException {
         this.userId = UUID.fromString(userId);
         this.origin = origin;
         this.destination = destination;
         this.comment = comment;
+        this.facebook = facebook;
+        this.instagram = instagram;
+        this.mobile = mobile;
         this.date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
     }
 
@@ -137,6 +158,30 @@ public class Travel {
 
     public void setDate(String date) throws ParseException {
         this.date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public LocalDateTime getAddedOn() {
