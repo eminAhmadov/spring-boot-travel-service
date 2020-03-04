@@ -14,5 +14,9 @@ import java.util.UUID;
 public interface TravelRepository extends PagingAndSortingRepository<Travel, Long> {
     Page<Travel> findAll(Pageable pageable);
     Page<Travel> findByUserId(UUID userId, Pageable pageable);
+    Page<Travel> findByOriginAndDestination(String origin, String destination, Pageable pageable);
+    Page<Travel> findByOriginAndDestinationAndDateAfter(String origin, String destination, Date fromDate, Pageable pageable);
+    Page<Travel> findByOriginAndDestinationAndDateBefore(String origin, String destination, Date toDate, Pageable pageable);
+    Page<Travel> findByOriginAndDestinationAndDateBetween(String origin, String destination, Date fromDate, Date toDate, Pageable pageable);
     boolean existsByUserIdAndOriginAndDestinationAndDate(UUID userId, String origin, String destination, Date date);
 }

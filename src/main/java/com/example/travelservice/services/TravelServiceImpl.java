@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,6 +37,24 @@ public class TravelServiceImpl implements TravelService {
     public List<Travel> getAllForUserWithUserId(UUID userId, int offset, int limit) {
         Pageable pageable = PageRequest.of(offset, limit, Sort.by(Sort.Direction.DESC, "addedOn"));
         return travelRepository.findByUserId(userId, pageable).getContent();
+    }
+
+    @Override
+    public List<Travel> search(String origin, String destination, Date fromDate, Date toDate, int offset, int limit) {
+        Pageable pageable = PageRequest.of(offset, limit, Sort.by(Sort.Direction.DESC, "addedOn"));
+        if (fromDate == null) {
+            if (toDate == null) {
+                return travelRepository.findByOriginAndDestination(origin, destination, pageable).getContent();
+            } else {
+                return travelRepository.findByOriginAndDestinationAndDateBefore(origin, destination, toDate, pageable).getContent();
+            }
+        } else {
+            if (toDate == null) {
+                return travelRepository.findByOriginAndDestinationAndDateAfter(origin, destination, fromDate, pageable).getContent();
+            } else {
+                return travelRepository.findByOriginAndDestinationAndDateBetween(origin, destination, fromDate, toDate, pageable).getContent();
+            }
+        }
     }
 
     @Override
