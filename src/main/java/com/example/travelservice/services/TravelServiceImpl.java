@@ -2,6 +2,9 @@ package com.example.travelservice.services;
 
 import com.example.travelservice.entities.Travel;
 import com.example.travelservice.repositories.TravelRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,13 +27,15 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public List<Travel> getAll() {
-        return travelRepository.findAllByOrderByAddedOnDesc();
+    public List<Travel> getAll(int offset, int limit) {
+        Pageable pageable = PageRequest.of(offset, limit, Sort.by(Sort.Direction.DESC, "addedOn"));
+        return travelRepository.findAll(pageable).getContent();
     }
 
     @Override
-    public List<Travel> getAllForUserWithUserId(UUID userId) {
-        return travelRepository.findByUserIdOrderByAddedOnDesc(userId);
+    public List<Travel> getAllForUserWithUserId(UUID userId, int offset, int limit) {
+        Pageable pageable = PageRequest.of(offset, limit, Sort.by(Sort.Direction.DESC, "addedOn"));
+        return travelRepository.findByUserId(userId, pageable).getContent();
     }
 
     @Override

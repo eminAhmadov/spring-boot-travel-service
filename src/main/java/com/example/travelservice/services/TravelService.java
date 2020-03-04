@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TravelService {
-    List<Travel> getAll();
-    List<Travel> getAllForUserWithUserId(UUID userId);
+    List<Travel> getAll(int offset, int limit);
+    List<Travel> getAllForUserWithUserId(UUID userId, int offset, int limit);
     ResponseEntity<Travel> createTravel(Travel travel);
     ResponseEntity<String> deleteTravel(Long id);
     ResponseEntity<String> editTravel(Long id, Travel travel);

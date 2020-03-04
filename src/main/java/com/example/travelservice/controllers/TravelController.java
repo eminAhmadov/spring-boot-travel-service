@@ -21,13 +21,20 @@ public class TravelController {
     }
 
     @GetMapping("/getAll")
-    public List<Travel> getAll() {
-        return travelService.getAll();
+    public List<Travel> getAll(
+            @RequestParam(value = "offset", defaultValue = "0", required = false) int offset,
+            @RequestParam(value = "limit", defaultValue = "5", required = false) int limit
+    ) {
+        return travelService.getAll(offset, limit);
     }
 
     @GetMapping("/getAllForUserWithUserId")
-    public List<Travel> getAllForUserWithUserId(@RequestParam UUID userId) {
-        return travelService.getAllForUserWithUserId(userId);
+    public List<Travel> getAllForUserWithUserId(
+            @RequestParam UUID userId,
+            @RequestParam(value = "offset", defaultValue = "0", required = false) int offset,
+            @RequestParam(value = "limit", defaultValue = "5", required = false) int limit
+    ) {
+        return travelService.getAllForUserWithUserId(userId, offset, limit);
     }
 
     @PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
