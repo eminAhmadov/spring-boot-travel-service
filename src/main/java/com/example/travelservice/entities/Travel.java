@@ -32,6 +32,9 @@ public class Travel {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "gender", nullable = false)
+    private String gender;
+
     @Column(name = "origin", nullable = false)
     private String origin;
 
@@ -63,9 +66,10 @@ public class Travel {
     public Travel() {
     }
 
-    public Travel(UUID userId, String name, String origin, String destination, String comment, String facebook, String instagram, String mobile, Date date) {
+    public Travel(UUID userId, String name, String gender, String origin, String destination, String comment, String facebook, String instagram, String mobile, Date date) {
         this.userId = userId;
         this.name = name;
+        this.gender = gender;
         this.origin = origin;
         this.destination = destination;
         this.comment = comment;
@@ -75,9 +79,10 @@ public class Travel {
         this.date = date;
     }
 
-    public Travel(String userId, String name, String origin, String destination, String comment, String facebook, String instagram, String mobile, Date date) {
+    public Travel(String userId, String name, String gender, String origin, String destination, String comment, String facebook, String instagram, String mobile, Date date) {
         this.userId = UUID.fromString(userId);
         this.name = name;
+        this.gender = gender;
         this.origin = origin;
         this.destination = destination;
         this.comment = comment;
@@ -87,9 +92,10 @@ public class Travel {
         this.date = date;
     }
 
-    public Travel(UUID userId, String name, String origin, String destination, String comment, String facebook, String instagram, String mobile, String date) throws ParseException {
+    public Travel(UUID userId, String name, String gender, String origin, String destination, String comment, String facebook, String instagram, String mobile, String date) throws ParseException {
         this.userId = userId;
         this.name = name;
+        this.gender = gender;
         this.origin = origin;
         this.destination = destination;
         this.comment = comment;
@@ -99,9 +105,10 @@ public class Travel {
         this.date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
     }
 
-    public Travel(String userId, String name, String origin, String destination, String comment, String facebook, String instagram, String mobile, String date) throws ParseException {
+    public Travel(String userId, String name, String gender, String origin, String destination, String comment, String facebook, String instagram, String mobile, String date) throws ParseException {
         this.userId = UUID.fromString(userId);
         this.name = name;
+        this.gender = gender;
         this.origin = origin;
         this.destination = destination;
         this.comment = comment;
@@ -137,6 +144,14 @@ public class Travel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getOrigin() {
