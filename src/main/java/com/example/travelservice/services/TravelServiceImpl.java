@@ -5,15 +5,13 @@ import com.example.travelservice.repositories.TravelRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class TravelServiceImpl implements TravelService {
@@ -72,6 +70,7 @@ public class TravelServiceImpl implements TravelService {
 
         Travel savedTravel = travelRepository.save(travel);
 
+        this.triggerNotificationAlerts(travel.getName(), travel.getOrigin(), travel.getDestination(), travel.getDate());
         return new ResponseEntity<>(savedTravel, HttpStatus.OK);
     }
 
@@ -118,5 +117,26 @@ public class TravelServiceImpl implements TravelService {
 
         message = "Could not find travel with id: " + id + ".";
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
+
+    private void triggerNotificationAlerts(String travelerName, String travelOrigin, String travelDestination, Date travelDate) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        String url = "http://localhost:8090/notificationAlert/trigger";
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String requestJson = "{" +
+                "\"travelerName\":\"" + travelerName + "\",\n" +
+                "\"travelOrigin\":\"" + travelOrigin + "\",\n" +
+                "\"travelDestination\":\"" + travelDestination + "\",\n" +
+                "\"travelDate\":\"" + dateFormat.format(travelDate) + "\"\n" +
+                "}";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(requestJson,headers);
+        String answer = restTemplate.postForObject(url, entity, String.class);
+        System.out.println(answer);
     }
 }
